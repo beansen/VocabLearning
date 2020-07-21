@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="VocabLearning.VocabTest">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <StackLayout
+                        x:Name="testLayout"
+                        VerticalOptions="Center"
+                        Spacing="50"
+                        AbsoluteLayout.LayoutBounds="0,0,1,1"
+                        AbsoluteLayout.LayoutFlags="All">
+                <Frame
+                   HasShadow="True"
+                   Margin="50, 0, 50, 0"
+                   BorderColor="Black">
+                    <Label x:Name="cardContent"
+                       HorizontalOptions="FillAndExpand"
+                       HorizontalTextAlignment="Center"
+                       FontSize="Medium"></Label>
+                </Frame>
+
+                <Entry Placeholder="Enter translation"
+                   Margin="30, 0, 30, 0"
+                   Keyboard="Default"
+                   Completed="OnEnterPressed"
+                       x:Name="userEntry"></Entry>
+            </StackLayout>
+            <StackLayout 
+                        x:Name="resultLayout"
+                        VerticalOptions="Center"
+                        Spacing="25"
+                        AbsoluteLayout.LayoutBounds="0,0,1,1"
+                         AbsoluteLayout.LayoutFlags="All"
+                        IsVisible="false">
+                <Label x:Name="answers"
+                       HorizontalOptions="FillAndExpand"
+                       HorizontalTextAlignment="Center"
+                       FontSize="Large">Answers: 7/10</Label>
+                <Label x:Name="accuracy"
+                       HorizontalOptions="FillAndExpand"
+                       HorizontalTextAlignment="Center"
+                       FontSize="Large">Accuracy: 70%</Label>
+                <StackLayout Orientation="Vertical"
+                             Margin="0, 20, 0, 0">
+                    <Button Text="Restart"
+                            HorizontalOptions="Center"
+                            WidthRequest="160"
+                            Clicked="OnRestart"></Button>
+                    <Button Text="Review Words"
+                            HorizontalOptions="Center"
+                            WidthRequest="160"
+                            Clicked="OnReview"></Button>
+                    <Button Text="Main Menu"
+                            HorizontalOptions="Center"
+                            WidthRequest="160"
+                            Clicked="OnMainMenu"></Button>
+                </StackLayout>
+
+            </StackLayout>
+            <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                         AbsoluteLayout.LayoutFlags="All"
+                         BackgroundColor="#CC000000"
+                            IsVisible="false"
+                            x:Name="popupLayout">
+                <Frame
+                   HasShadow="True"
+                   BorderColor="Black"
+                    AbsoluteLayout.LayoutBounds="0.5,0.5,0.8,0.2"
+                         AbsoluteLayout.LayoutFlags="All">
+                    <Label x:Name="popupContent"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="CenterAndExpand"
+                       FontSize="Large">ihwif hwe ifh</Label>
+                </Frame>
+            </AbsoluteLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

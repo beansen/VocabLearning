@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="VocabLearning.VocabTestListPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout
+                HeightRequest="40"
+                Orientation="Horizontal">
+                <Label
+                    HorizontalOptions="FillAndExpand"
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="End"
+                    FontSize="22">Sort</Label>
+                <Picker
+                    x:Name="sortingPicker"
+                    WidthRequest="150">
+                    <Picker.Items>
+                        <x:String>Index asc</x:String>
+                        <x:String>Index desc</x:String>
+                        <x:String>Date asc</x:String>
+                        <x:String>Date desc</x:String>
+                    </Picker.Items>
+                </Picker>
+            </StackLayout>
+            <ScrollView>
+                <StackLayout x:Name="listLayout">
+                    
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

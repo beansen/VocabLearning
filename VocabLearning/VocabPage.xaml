@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="VocabLearning.VocabPage">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="Center"
+                     Spacing="30">
+            <Frame
+                   HasShadow="True"
+                   Margin="50, 0, 50, 0"
+                   BorderColor="Black">
+                <Label x:Name="cardContent"
+                       HorizontalOptions="FillAndExpand"
+                       HorizontalTextAlignment="Center"
+                       FontSize="Medium">ihwif hwe ifh</Label>
+            </Frame>
+            <StackLayout Orientation="Horizontal"
+                         HeightRequest="60"
+                         Margin="10, 0, 10, 0"
+                         Spacing="0">
+                <Button Text="Previous"
+                        Clicked="OnBack"
+                        x:Name="backButton"
+                        IsEnabled="False"
+                        HorizontalOptions="FillAndExpand"></Button>
+                <Button Text="Turn card"
+                        HorizontalOptions="FillAndExpand"
+                        Clicked="OnTurnCard"></Button>
+                <Button Text="Next"
+                        x:Name="nextButton"
+                        HorizontalOptions="FillAndExpand"
+                        Clicked="OnNext"></Button>
+                <Button Text="Start test"
+                        x:Name="startTestButton"
+                        IsVisible="false"
+                        HorizontalOptions="FillAndExpand"
+                        Clicked="OnStartTest"></Button>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
