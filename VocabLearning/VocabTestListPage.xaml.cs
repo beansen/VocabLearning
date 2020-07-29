@@ -20,13 +20,13 @@ namespace VocabLearning
         {
             int index = 0;
 
-            if (Application.Current.Properties.ContainsKey("LastLearned"))
+            if (Application.Current.Properties.ContainsKey("TestData"))
             {
-                string json = (string)Application.Current.Properties["LastLearned"];
+                string json = (string)Application.Current.Properties["TestData"];
 
-                Dictionary<int, LearnedData> lastLearned = JsonConvert.DeserializeObject<Dictionary<int, LearnedData>>(json);
+                Dictionary<int, LearnedData> testData = JsonConvert.DeserializeObject<Dictionary<int, LearnedData>>(json);
 
-                for (int i = 0; i < lastLearned.Count; i++)
+                for (int i = 0; i < testData.Count; i++)
                 {
                     int lastWord = (i + 1) * 10;
                     int firstWord = i * 10;
@@ -36,10 +36,12 @@ namespace VocabLearning
                     }
 
                     string wordsIndexText = String.Format("{0} - {1}", firstWord + 1, lastWord);
-                    string lastLearnedText = String.Format("Last learned: {0}", lastLearned[i].Date.ToString());
-                    StackLayout stackLayout = new StackLayout() {HeightRequest = 70};
+                    string lastLearnedText = String.Format("Last learned: {0}", testData[i].Date.ToString());
+                    string accuracyText = String.Format("Accuracy: {0}%", testData[i].Accuracy);
+                    StackLayout stackLayout = new StackLayout() {HeightRequest = 94};
                     stackLayout.Children.Add(new Label() {FontSize = 26, HorizontalTextAlignment =  TextAlignment.Center, Text = wordsIndexText, TextColor = Color.Black });
                     stackLayout.Children.Add(new Label() { FontSize = 17, HorizontalTextAlignment = TextAlignment.Center, Text = lastLearnedText, TextColor = Color.Black });
+                    stackLayout.Children.Add(new Label() { FontSize = 17, HorizontalTextAlignment = TextAlignment.Center, Text = accuracyText, TextColor = Color.Black });
 
                     TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer();
                     tapGestureRecognizer.Tapped += async (s, e) =>
@@ -52,7 +54,7 @@ namespace VocabLearning
 
                 }
 
-                index = lastLearned.Count;
+                index = testData.Count;
             }
 
             while (index * 10 < VocabHandler.Instance.Words.Count)
@@ -65,9 +67,11 @@ namespace VocabLearning
                 }
                 string wordsIndexText = String.Format("{0} - {1}", firstWord + 1, lastWord);
                 string lastLearnedText = "Last learned: -";
-                StackLayout stackLayout = new StackLayout() { HeightRequest = 70 };
+                string accuracyText = "Accuracy: -";
+                StackLayout stackLayout = new StackLayout() { HeightRequest = 94 };
                 stackLayout.Children.Add(new Label() { FontSize = 26, HorizontalTextAlignment = TextAlignment.Center, Text = wordsIndexText, TextColor = Color.Gray});
                 stackLayout.Children.Add(new Label() { FontSize = 17, HorizontalTextAlignment = TextAlignment.Center, Text = lastLearnedText, TextColor = Color.Gray });
+                stackLayout.Children.Add(new Label() { FontSize = 17, HorizontalTextAlignment = TextAlignment.Center, Text = accuracyText, TextColor = Color.Gray });
                 listLayout.Children.Add(stackLayout);
 
                 index++;
@@ -78,9 +82,9 @@ namespace VocabLearning
         {
             List<LearnedData> dataList = new List<LearnedData>();
 
-            if (Application.Current.Properties.ContainsKey("LastLearned"))
+            if (Application.Current.Properties.ContainsKey("TestData"))
             {
-                string json = (string)Application.Current.Properties["LastLearned"];
+                string json = (string)Application.Current.Properties["TestData"];
 
                 Dictionary<int, LearnedData> lastLearned = JsonConvert.DeserializeObject<Dictionary<int, LearnedData>>(json);
                 dataList.AddRange(lastLearned.Values);
@@ -125,6 +129,7 @@ namespace VocabLearning
                 StackLayout stackLayout = (StackLayout)listLayout.Children[i];
                 Label wordIndexLabel = (Label)stackLayout.Children[0];
                 Label lastLearnedLabel = (Label)stackLayout.Children[1];
+                Label accuracyLabel = (Label)stackLayout.Children[2];
 
                 wordIndexLabel.Text = String.Format("{0} - {1}", firstWord + 1, lastWord);
 
@@ -145,8 +150,10 @@ namespace VocabLearning
 
                         wordIndexLabel.Text = String.Format("{0} - {1}", firstWord + 1, lastWord);
                         lastLearnedLabel.Text = String.Format("Last learned: {0}", learnedData.Date.ToString());
+                        accuracyLabel.Text = String.Format("Accuracy: {0}%", learnedData.Accuracy);
                         wordIndexLabel.TextColor = Color.Black;
                         lastLearnedLabel.TextColor = Color.Black;
+                        accuracyLabel.TextColor = Color.Black;
                         TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer();
                         tapGestureRecognizer.Tapped += async (s, e) =>
                         {
@@ -158,8 +165,10 @@ namespace VocabLearning
                     {
                         wordIndexLabel.Text = String.Format("{0} - {1}", firstWord + 1, lastWord);
                         lastLearnedLabel.Text = "Last learned: -";
+                        accuracyLabel.Text = "Accuracy: -";
                         wordIndexLabel.TextColor = Color.Gray;
                         lastLearnedLabel.TextColor = Color.Gray;
+                        accuracyLabel.TextColor = Color.Gray;
                     }
                 }
                 else
@@ -179,8 +188,10 @@ namespace VocabLearning
 
                         wordIndexLabel.Text = String.Format("{0} - {1}", firstWord + 1, lastWord);
                         lastLearnedLabel.Text = String.Format("Last learned: {0}", learnedData.Date.ToString());
+                        accuracyLabel.Text = String.Format("Accuracy: {0}%", learnedData.Accuracy);
                         wordIndexLabel.TextColor = Color.Black;
                         lastLearnedLabel.TextColor = Color.Black;
+                        accuracyLabel.TextColor = Color.Black;
                         TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer();
                         tapGestureRecognizer.Tapped += async (s, e) =>
                         {
@@ -191,8 +202,10 @@ namespace VocabLearning
                     else
                     {
                         lastLearnedLabel.Text = "Last learned: -";
+                        accuracyLabel.Text = "Accuracy: -";
                         wordIndexLabel.TextColor = Color.Gray;
                         lastLearnedLabel.TextColor = Color.Gray;
+                        accuracyLabel.TextColor = Color.Gray;
                     }
                 }
             }

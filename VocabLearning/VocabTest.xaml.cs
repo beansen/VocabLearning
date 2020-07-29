@@ -41,25 +41,38 @@ namespace VocabLearning
                         int acc = correctAnswers * 100 / testWords.Count;
                         accuracy.Text = String.Format("Accuracy: {0}%", acc);
 
+                        int index = startIndex / 10;
+
                         if (acc >= 80)
                         {
-                            int index = startIndex / 10;
-                            Dictionary<int, LearnedData> lastLearned;
-                            if (Application.Current.Properties.ContainsKey("LastLearned"))
-                            {
-                                string json = (string)Application.Current.Properties["LastLearned"];
+                            int maxMastered = -1;
 
-                                lastLearned = JsonConvert.DeserializeObject<Dictionary<int, LearnedData>>(json);
-                            }
-                            else
+                            if (Application.Current.Properties.ContainsKey("MaxMastered"))
                             {
-                                lastLearned = new Dictionary<int, LearnedData>();
+                                maxMastered = (int)Application.Current.Properties["MaxMastered"];
                             }
 
-                            lastLearned[index] = new LearnedData(index, DateTime.Now);
-                            Application.Current.Properties["LastLearned"] = JsonConvert.SerializeObject(lastLearned);
-                            Application.Current.SavePropertiesAsync();
+                            if (index > maxMastered)
+                            {
+                                Application.Current.Properties["MaxMastered"] = index;
+                            }
                         }
+                        
+                        Dictionary<int, LearnedData> testData;
+                        if (Application.Current.Properties.ContainsKey("TestData"))
+                        {
+                            string json = (string)Application.Current.Properties["TestData"];
+
+                            testData = JsonConvert.DeserializeObject<Dictionary<int, LearnedData>>(json);
+                        }
+                        else
+                        {
+                            testData = new Dictionary<int, LearnedData>();
+                        }
+
+                        testData[index] = new LearnedData(index, DateTime.Now, acc);
+                        Application.Current.Properties["TestData"] = JsonConvert.SerializeObject(testData);
+                        Application.Current.SavePropertiesAsync();
                     }
                     //userEntry.Focus();
                 }),

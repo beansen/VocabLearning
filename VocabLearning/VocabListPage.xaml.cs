@@ -18,16 +18,14 @@ namespace VocabLearning
         {
             listLayout.Children.Clear();
 
-            int packageIndex = 0;
+            int maxMastered = -1;
 
-            if (Application.Current.Properties.ContainsKey("LastLearned"))
+            if (Application.Current.Properties.ContainsKey("MaxMastered"))
             {
-                string json = (string)Application.Current.Properties["LastLearned"];
-
-                Dictionary<int, LearnedData> lastLearned = JsonConvert.DeserializeObject<Dictionary<int, LearnedData>>(json);
-
-                packageIndex = lastLearned.Count;
+                maxMastered = (int)Application.Current.Properties["MaxMastered"];
             }
+
+            maxMastered++;
 
             int index = 0;
 
@@ -44,9 +42,9 @@ namespace VocabLearning
                 label.HorizontalTextAlignment = TextAlignment.Center;
                 label.VerticalTextAlignment = TextAlignment.Center;
                 label.HeightRequest = 40;
-                label.TextColor = index <= packageIndex ? Color.Black : Color.Gray;
+                label.TextColor = index <= maxMastered ? Color.Black : Color.Gray;
                 label.FontSize = 26;
-                label.IsEnabled = index <= packageIndex;
+                label.IsEnabled = index <= maxMastered;
                 label.Text = String.Format("{0} - {1}", firstWord + 1, lastWord);
                 TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer();
                 tapGestureRecognizer.Tapped += async (s, e) =>
